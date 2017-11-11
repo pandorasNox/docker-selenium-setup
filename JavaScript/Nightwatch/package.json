@@ -1,0 +1,17 @@
+{
+  "name": "docker-selenium-javascript-nightwatch-setup",
+  "version": "0.0.1",
+  "description": "Raw model for a standard docker selenium JavaScript Nightwatch setup",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "docker",
+    "selenium",
+    "JavaScript",
+    "Nightwatch.js"
+  ],
+  "author": "Tino Stöckel a.k.a Nox from pandorasNox",
+  "license": "MIT"
+}
