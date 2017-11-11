@@ -1,10 +1,26 @@
 {
   "name": "docker-selenium-javascript-nightwatch-setup",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Raw model for a standard docker selenium JavaScript Nightwatch setup",
-  "main": "index.js",
+  "main": "",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "nightwatch": "0.9.16"
+  },
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "nightwatch": "nightwatch -e chrome",
+    "nightwatch-all": "nightwatch -e chrome,direfox",
+    "nightwatch-debug": "nightwatch -e chrome-debug",
+    "nightwatch-debug-all": "nightwatch -e chrome-debug,firefox-debug",
+    "start": "npm run stop && docker-compose up -d selenium-hub chrome",
+    "start-all": "npm run stop && docker-compose up -d selenium-hub chrome firefox",
+    "start_debug": "npm run stop && docker-compose up -d selenium-hub chrome-debug",
+    "stop": "docker-compose kill && docker-compose rm -vf",
+    "test_debug": "docker/bin/debug_test.sh",
+    "test": "docker/bin/test.sh"
   },
   "keywords": [
     "docker",
@@ -13,5 +29,6 @@
     "Nightwatch.js"
   ],
   "author": "Tino Stöckel a.k.a Nox from pandorasNox",
+  "repository": {},
   "license": "MIT"
 }

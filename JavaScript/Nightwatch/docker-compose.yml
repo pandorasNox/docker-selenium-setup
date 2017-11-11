@@ -1,11 +1,22 @@
 version: "3.2"
 
 services:
-    #nightwatch:
-    #    image: node
+    nightwatch:
+        build:
+            context: .
+        environment:
+            NODE_ENV: test
+        depends_on:
+            - selenium-hub
+        networks:
+            network_hub:
 
     selenium-hub:
         image: selenium/hub:3.7.1
+        environment:
+            GRID_BROWSER_TIMEOUT: 120000
+            GRID_TIMEOUT: 120000
+            VIRTUAL_HOST: selenium.hub.docker
         ports:
             - "4444:4444"
         expose:
@@ -17,18 +28,59 @@ services:
 
     chrome:
         image: selenium/node-chrome:3.7.1
-        links:
-            - selenium-hub:hub
+        environment:
+            - HUB_PORT_4444_TCP_ADDR=hub
+            - HUB_PORT_4444_TCP_PORT=4444
         volumes:
             - /dev/shm:/dev/shm # Mitigates the Chromium issue described at https://code.google.com/p/chromium/issues/detail?id=519952
+        depends_on:
+            - selenium-hub
         networks:
             network_hub:
 
-    firefox:
-        image: selenium/node-firefox:3.7.1
+    # firefox:
+    #     #selenium/node-firefox:3.7.1
+    #     #cvakiitho/firefox:3.5.3
+    #     image: selenium/standalone-firefox:3.7.1-argon
+    #     environment:
+    #         - HUB_PORT_4444_TCP_ADDR=hub
+    #         - HUB_PORT_4444_TCP_PORT=4444
+    #     volumes:
+    #         - "/dev/shm:/dev/shm"
+    #     shm_size: 2g
+    #     depends_on:
+    #         - selenium-hub
+    #     networks:
+    #         network_hub:
+
+    chrome-debug:
+        image: selenium/node-chrome-debug:3.7.1
+        environment:
+            - HUB_PORT_4444_TCP_ADDR=hub
+            - HUB_PORT_4444_TCP_PORT=4444
+        volumes:
+            - /dev/shm:/dev/shm # Mitigates the Chromium issue described at https://code.google.com/p/chromium/issues/detail?id=519952
+        ports:
+            - "5900:5900"
+        expose:
+            - "5900"
+        depends_on:
+            - selenium-hub
         networks:
             network_hub:
+            #x11:
+
+    # firefox-debug:
+    #     image: selenium/node-firefox-debug:3.0.1
+    #     environment:
+    #         <<: *SELENIUM_NODE_ENV
+    #     ports:
+    #         - "5901:5900"
+    #     depends_on:
+    #         - selenium-hub
 
 networks:
     network_hub:
+        driver: bridge
+    x11:
         driver: bridge

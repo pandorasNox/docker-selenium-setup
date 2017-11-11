@@ -1,0 +1,37 @@
+{
+    "src_folders" : ["tests"],
+    "test_settings" : {
+        "default" : {
+            "launch_url": "https://google.com",
+            "selenium_host"  : "hub",
+            "desiredCapabilities": {
+                "browserName": "chrome"
+            },
+            "screenshots" : {
+                "enabled" : true,
+                "on_failure" : true,
+                "path" : "tests_output/screenshots"
+            }
+        },
+        "chrome" : {
+            "desiredCapabilities": {
+                "browserName": "chrome"
+            }
+        },
+        "firefox" : {
+            "desiredCapabilities": {
+                "browserName": "firefox"
+            }
+        },
+        "chrome-debug" : {
+            "desiredCapabilities": {
+                "browserName": "chrome"
+            }
+        },
+        "firefox-debug" : {
+            "desiredCapabilities": {
+                "browserName": "firefox"
+            }
+        }
+    }
+  }
